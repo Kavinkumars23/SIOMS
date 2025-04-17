@@ -1,0 +1,17 @@
+# === .NET ===
+bin/
+obj/
+*.user
+*.suo
+.vs/
+*.db
+
+# === Node/React ===
+/sioms-app/node_modules/
+/sioms-app/dist/
+/sioms-app/.env
+/sioms-app/.vite/
+
+# === System Files ===
+.DS_Store
+Thumbs.db
