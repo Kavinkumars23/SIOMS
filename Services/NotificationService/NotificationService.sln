@@ -5,6 +5,12 @@ VisualStudioVersion = 17.9.34701.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService.API", "NotificationService.API\NotificationService.API.csproj", "{AF4BA070-DE89-45A9-B0DF-7E5F8C89282F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService.Application", "NotificationService.Application\NotificationService.Application.csproj", "{E38D545A-4FC0-4712-89E1-230DE300E095}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService.Domain", "NotificationService.Domain\NotificationService.Domain.csproj", "{73081845-E2A5-42DB-B882-BB8D1AB230AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService.Infrastructure", "NotificationService.Infrastructure\NotificationService.Infrastructure.csproj", "{A6ABED6A-A819-40FD-BE39-9EFEE73E360F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +21,18 @@ Global
 		{AF4BA070-DE89-45A9-B0DF-7E5F8C89282F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF4BA070-DE89-45A9-B0DF-7E5F8C89282F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF4BA070-DE89-45A9-B0DF-7E5F8C89282F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E38D545A-4FC0-4712-89E1-230DE300E095}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E38D545A-4FC0-4712-89E1-230DE300E095}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E38D545A-4FC0-4712-89E1-230DE300E095}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E38D545A-4FC0-4712-89E1-230DE300E095}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73081845-E2A5-42DB-B882-BB8D1AB230AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73081845-E2A5-42DB-B882-BB8D1AB230AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73081845-E2A5-42DB-B882-BB8D1AB230AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73081845-E2A5-42DB-B882-BB8D1AB230AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6ABED6A-A819-40FD-BE39-9EFEE73E360F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6ABED6A-A819-40FD-BE39-9EFEE73E360F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6ABED6A-A819-40FD-BE39-9EFEE73E360F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6ABED6A-A819-40FD-BE39-9EFEE73E360F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
