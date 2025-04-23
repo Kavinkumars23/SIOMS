@@ -1,16 +1,27 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import Login from './Pages/Login';
+import Register from './Pages/Register';
+import Landing from './Pages/Landing';
+import PrivateRoute from './Components/PrivateRoute';
 
 function App() {
-  
-
   return (
-    <div className="text-center p-8 bg-blue-100 text-blue-800 text-2xl font-bold rounded-xl">
-    🚀 Tailwind is working!
-  </div>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route
+          path="/landing"
+          element={
+            <PrivateRoute>
+              <Landing />
+            </PrivateRoute>
+          }
+        />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;

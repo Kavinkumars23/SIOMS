@@ -16,7 +16,8 @@ namespace IdentityService.API.Controllers
         {
             _authService = authService;
         }
-        
+
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginUserDto dto)
         {
@@ -49,7 +50,7 @@ namespace IdentityService.API.Controllers
         }
 
 
-      //  [Authorize]
+        [Authorize]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult SecureAdminData()
