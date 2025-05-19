@@ -10,7 +10,7 @@ const Login = () => {
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault();         
         try {
             const res = await api.post('/auth/login', form);
             console.log('Login success:', res.data);
