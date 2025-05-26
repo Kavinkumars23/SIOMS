@@ -17,6 +17,6 @@ public class ProductController : ControllerBase
     [Authorize(Roles = "Admin")]
     public IActionResult CreateProduct(CreateProductDto dto)
     {
-        return Ok();
+        return Ok("Kavin");
     }
 }
