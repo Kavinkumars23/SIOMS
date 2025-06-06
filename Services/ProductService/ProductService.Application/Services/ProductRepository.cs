@@ -1,5 +1,8 @@
-﻿using ProductService.Application.DTOs;
+﻿using Microsoft.EntityFrameworkCore;
+using ProductService.Application.DTOs;
 using ProductService.Application.Interfaces;
+using ProductService.Domain.Entities;
+using ProductService.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,31 +11,45 @@ using System.Threading.Tasks;
 
 namespace ProductService.Application.Services
 {
-    public class ProductRepository : IProductService
+    public class ProductRepository : IProductRepository
     {
-        public Task CreateAsync(CreateProductDto dto)
+        private readonly ProductDbContext _context;
+
+        public ProductRepository(ProductDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Task DeleteAsync(Guid id)
+        public async Task<IEnumerable<Product>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Products.Include(p => p.Category).ToListAsync();
         }
 
-        public Task<IEnumerable<GetProductDto>> GetAllAsync()
+        public async Task<Product?> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await _context.Products.Include(p => p.Category)
+                                          .FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public Task<GetProductDto> GetByIdAsync(Guid id)
+        public async Task AddAsync(Product product)
         {
-            throw new NotImplementedException();
+            await _context.Products.AddAsync(product);
         }
 
-        public Task UpdateAsync(Guid id, UpdateProductDto dto)
+        public void Update(Product product)
         {
-            throw new NotImplementedException();
+            _context.Products.Update(product);
+        }
+
+        public void Delete(Product product)
+        {
+            _context.Products.Remove(product);
+        }
+
+        public async Task<bool> SaveChangesAsync()
+        {
+            return await _context.SaveChangesAsync() > 0;
         }
     }
+
 }

@@ -28,7 +28,8 @@ namespace IdentityService.Application.Services
         public async Task<string> LoginAsync(LoginUserDto dto)
         {
             var user = await _userManager.FindByEmailAsync(dto.Email);
-            if (user == null || await _userManager.CheckPasswordAsync(user, dto.Password))
+            var passwordCheck = await _userManager.CheckPasswordAsync(user, dto.Password);
+            if (user == null || !passwordCheck)
             {
                 return "Invalid Email or Password.";
             }

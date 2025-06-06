@@ -9,9 +9,14 @@ namespace ProductService.Domain.Entities
     public class Product
     {
         public Guid Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public string SKU { get; set; } = string.Empty; 
+        public string Name { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
         public decimal Price { get; set; }
         public int Quantity { get; set; }
+
+        public int CategoryId { get; set; }                // FK
+        public Category Category { get; set; } = null!;    // Navigation
     }
+
 }

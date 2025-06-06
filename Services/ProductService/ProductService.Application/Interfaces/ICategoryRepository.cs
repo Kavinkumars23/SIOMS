@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProductService.Application.DTOs
+namespace ProductService.Application.Interfaces
 {
-    public class DeleteProductDto
+    internal interface ICategoryRepository
     {
-        public Guid Id { get; set; }
     }
-
 }

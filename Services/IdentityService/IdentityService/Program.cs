@@ -51,8 +51,10 @@ builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true
 //Jwt configuration starts here
 var jwtIssuer = builder.Configuration.GetSection("Jwt:Issuer").Get<string>();
     var jwtKey = builder.Configuration.GetSection("Jwt:Key").Get<string>();
+var jwtAudience = builder.Configuration.GetSection("Jwt:Audience").Get<string>();
 
-    builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
      .AddJwtBearer(options =>
      {
          options.TokenValidationParameters = new TokenValidationParameters
@@ -62,11 +64,11 @@ var jwtIssuer = builder.Configuration.GetSection("Jwt:Issuer").Get<string>();
              ValidateLifetime = true,
              ValidateIssuerSigningKey = true,
              ValidIssuer = jwtIssuer,
-             ValidAudience = jwtIssuer,
+             ValidAudience = jwtAudience,
              IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
          };
      });
-    async Task SeedRoles(IServiceProvider serviceProvider)
+  /*  async Task SeedRoles(IServiceProvider serviceProvider)
     {
         var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
@@ -79,7 +81,7 @@ var jwtIssuer = builder.Configuration.GetSection("Jwt:Issuer").Get<string>();
                 await roleManager.CreateAsync(new IdentityRole(roleName));
             }
         }
-    }
+    }*/
 
 
 
@@ -125,11 +127,11 @@ var app = builder.Build();
 
     
 
-    using (var scope = app.Services.CreateScope())
+   /* using (var scope = app.Services.CreateScope())
     {
         var services = scope.ServiceProvider;
         await SeedRoles(services); // seeds roles to DB
-    }
+    }*/
 
 
     app.UseCors("AllowFrontend");
