@@ -16,6 +16,11 @@ namespace ProductService.Application.Interfaces
         void Update(Product product);
         void Delete(Product product);
         Task<bool> SaveChangesAsync();
+
+        Task<(IEnumerable<Product> products, int totalCount)> SearchAsync(
+            string? name, int? categoryId, decimal? minPrice, decimal? maxPrice,
+            int pageNumber, int pageSize);
+
     }
 
 

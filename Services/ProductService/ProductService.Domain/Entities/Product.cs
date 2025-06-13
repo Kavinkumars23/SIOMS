@@ -17,6 +17,10 @@ namespace ProductService.Domain.Entities
 
         public int CategoryId { get; set; }                // FK
         public Category Category { get; set; } = null!;    // Navigation
+
+        public string? ImageUrl { get; set; }
+
+        public bool IsDeleted { get; set; } = false;
     }
 
 }

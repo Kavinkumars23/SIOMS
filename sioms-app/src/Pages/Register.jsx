@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const Register = () => {
-    const [form, setForm] = useState({ fullName: '', email: '', password: '', role: 'Staff' });
+    const [form, setForm] = useState({ fullName: '', email: '', password: '', role: 'admin' });
     const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();

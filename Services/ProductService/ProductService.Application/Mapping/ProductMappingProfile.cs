@@ -21,5 +21,9 @@ public class ProductMappingProfile : Profile
 
         
         CreateMap<Product, DeleteProductDto>();
+
+        CreateMap<CreateCategoryDto, Category>();
+        CreateMap<Category, GetCategoryDto>();
+
     }
 }

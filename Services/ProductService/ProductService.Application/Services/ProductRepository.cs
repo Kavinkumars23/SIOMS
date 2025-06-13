@@ -22,14 +22,20 @@ namespace ProductService.Application.Services
 
         public async Task<IEnumerable<Product>> GetAllAsync()
         {
-            return await _context.Products.Include(p => p.Category).ToListAsync();
+            return await _context.Products
+                .Include(p => p.Category)
+                .Where(p => !p.IsDeleted) 
+                .ToListAsync();
         }
+
 
         public async Task<Product?> GetByIdAsync(Guid id)
         {
-            return await _context.Products.Include(p => p.Category)
-                                          .FirstOrDefaultAsync(p => p.Id == id);
+            return await _context.Products
+                .Include(p => p.Category)
+                .FirstOrDefaultAsync(p => p.Id == id && !p.IsDeleted); // ✅ Exclude soft-deleted
         }
+
 
         public async Task AddAsync(Product product)
         {
@@ -50,6 +56,36 @@ namespace ProductService.Application.Services
         {
             return await _context.SaveChangesAsync() > 0;
         }
+
+        public async Task<(IEnumerable<Product> products, int totalCount)> SearchAsync(
+    string? name, int? categoryId, decimal? minPrice, decimal? maxPrice,
+    int pageNumber, int pageSize)
+        {
+            var query = _context.Products.Include(p => p.Category).AsQueryable();
+
+            if (!string.IsNullOrEmpty(name))
+                query = query.Where(p => p.Name.Contains(name) || p.SKU.Contains(name));
+
+            if (categoryId.HasValue)
+                query = query.Where(p => p.CategoryId == categoryId);
+
+            if (minPrice.HasValue)
+                query = query.Where(p => p.Price >= minPrice.Value);
+
+            if (maxPrice.HasValue)
+                query = query.Where(p => p.Price <= maxPrice.Value);
+
+            var totalCount = await query.CountAsync();
+
+            var products = await query
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return (products, totalCount);
+        }
+
+
     }
 
 }
