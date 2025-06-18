@@ -3,16 +3,18 @@ import api from '../Services/api';
 import loginImage from '../assets/login_Side_img.jpg';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { useRegisterMutation } from '../features/auth/authApi';
 
 
 
 const Register = () => {
     const [form, setForm] = useState({ fullName: '', email: '', password: '', role: 'admin' });
+    const [register, {isLoading}] = useRegisterMutation(); 
     const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await api.post('/auth/register', form);
+            const res = await register(form).unwrap();
             console.log('Register success:', res.data);
             navigate("/login")
         } catch (err) {

@@ -1,27 +1,29 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import api from '../Services/api';
 import loginImage from '../assets/login_Side_img.jpg';
 import { useNavigate } from 'react-router-dom';
+import { useLoginMutation } from '../features/auth/authApi';
+import { useDispatch } from 'react-redux';
+import { loginSuccess } from '../features/auth/authSlice';
 
 
 const Login = () => {
     const [form, setForm] = useState({ email: '', password: '' });
+    const [login, { isLoading }] = useLoginMutation();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleSubmit = async (e) => {
-        e.preventDefault();         
+        e.preventDefault();
         try {
-            const res = await api.post('/auth/login', form);
-            console.log('Login success:', res.data);
-            localStorage.setItem('token', res.data.token);
+            const res = await login(form).unwrap();
+            localStorage.setItem('token', res.token);
+            dispatch(loginSuccess({ user: res.user, token: res.token }));
             navigate('/landing');
-
         } catch (err) {
-            console.error('Login failed:', err.response?.data || err.message);
+            console.error('Login failed:', err?.data || err.message);
         }
     };
-
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-400 via-pink-300 to-blue-300">
             <div className="flex w-full max-w-5xl bg-white shadow-xl rounded-lg overflow-hidden">
