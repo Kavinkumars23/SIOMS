@@ -68,25 +68,26 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
              IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
          };
      });
-  /*  async Task SeedRoles(IServiceProvider serviceProvider)
+async Task SeedRoles(IServiceProvider serviceProvider)
+{
+    var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+    string[] roleNames = { "Admin", "Manager", "Staff", "User" };
+
+    foreach (var roleName in roleNames)
     {
-        var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-
-        string[] roleNames = { "Admin", "Manager", "Staff" };
-
-        foreach (var roleName in roleNames)
+        if (!await roleManager.RoleExistsAsync(roleName))
         {
-            if (!await roleManager.RoleExistsAsync(roleName))
-            {
-                await roleManager.CreateAsync(new IdentityRole(roleName));
-            }
+            await roleManager.CreateAsync(new IdentityRole(roleName));
         }
-    }*/
+    }
+}
 
 
 
 
-    builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo { Title = "Identity API", Version = "v1" });
@@ -127,11 +128,11 @@ var app = builder.Build();
 
     
 
-   /* using (var scope = app.Services.CreateScope())
+   using (var scope = app.Services.CreateScope())
     {
         var services = scope.ServiceProvider;
         await SeedRoles(services); // seeds roles to DB
-    }*/
+    }
 
 
     app.UseCors("AllowFrontend");

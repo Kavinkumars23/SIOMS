@@ -76,7 +76,16 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 });
-
+// Enable CORS (for frontend)
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalhost",
+        builder => builder
+            .WithOrigins("http://localhost:5174") // frontend URL
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials());
+});
 builder.Services.AddControllers();
 
 var app = builder.Build();
@@ -85,6 +94,7 @@ var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
+app.UseCors("AllowLocalhost");
 
 app.UseHttpsRedirection();
 

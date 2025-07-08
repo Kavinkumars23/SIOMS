@@ -1,8 +1,10 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
-import Landing from './Pages/Landing';
+import Landing from './Pages/Dashboard';
 import PrivateRoute from './Components/PrivateRoute';
+import Product from './Pages/Product';
+import AddProduct from './Pages/AddProduct';
 
 function App() {
   return (
@@ -16,6 +18,22 @@ function App() {
           element={
             <PrivateRoute>
               <Landing />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/products"
+          element={
+            <PrivateRoute>
+              <Product />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/product/addproduct"
+          element={
+            <PrivateRoute>
+              <AddProduct />
             </PrivateRoute>
           }
         />

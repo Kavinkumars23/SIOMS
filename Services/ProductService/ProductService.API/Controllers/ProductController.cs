@@ -87,7 +87,6 @@ public class ProductController : ControllerBase
 
 
     [HttpGet("search")]
-    [HttpGet("search")]
     public async Task<IActionResult> Search(
     [FromQuery] string? name,
     [FromQuery] int? categoryId,

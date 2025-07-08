@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import api from '../Services/api';
 import loginImage from '../assets/login_Side_img.jpg';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
