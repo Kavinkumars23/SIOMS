@@ -50,5 +50,17 @@ namespace ProductService.Application.Services
 
                 return $"https://{_bucketName}.s3.amazonaws.com/{fileName}";
             }
+
+        public async Task DeleteFileAsync(string fileName)
+        {
+            var request = new Amazon.S3.Model.DeleteObjectRequest
+            {
+                BucketName = _bucketName,
+                Key = fileName
+            };
+
+            await _s3Client.DeleteObjectAsync(request);
         }
+
     }
+}

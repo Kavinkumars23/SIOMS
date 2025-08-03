@@ -5,6 +5,7 @@ import Landing from './Pages/Dashboard';
 import PrivateRoute from './Components/PrivateRoute';
 import Product from './Pages/Product';
 import AddProduct from './Pages/AddProduct';
+import EditProduct from './Pages/EditProduct';
 
 function App() {
   return (
@@ -37,6 +38,9 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route path="/product/edit-product" element={<PrivateRoute>
+          <EditProduct />
+        </PrivateRoute>} />
       </Routes>
     </Router>
   );

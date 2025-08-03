@@ -61,11 +61,24 @@ public class ProductController : ControllerBase
 
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(Guid id, UpdateProductDto dto)
+    [Consumes("multipart/form-data")]
+    public async Task<IActionResult> Update(Guid id, [FromForm] UpdateProductDto dto)
     {
         var product = await _repo.GetByIdAsync(id);
         if (product == null) return NotFound();
+        if (dto.Image != null)
+        {
+            // OPTIONAL: Remove old image
+            if (!string.IsNullOrEmpty(product.ImageUrl))
+            {
+                var fileName = Path.GetFileName(new Uri(product.ImageUrl).LocalPath);
+                await _uploader.DeleteFileAsync(fileName); // implement DeleteFileAsync
+            }
 
+            // Upload new image
+            var newImageUrl = await _uploader.UploadFileAsync(dto.Image);
+            product.ImageUrl = newImageUrl;
+        }
         _mapper.Map(dto, product);
         _repo.Update(product);
         await _repo.SaveChangesAsync();

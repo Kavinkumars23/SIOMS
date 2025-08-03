@@ -1,5 +1,6 @@
 // src/features/products/productApi.js
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { Edit } from 'lucide-react';
 
 export const productApi = createApi({
   reducerPath: 'productApi',
@@ -22,14 +23,27 @@ export const productApi = createApi({
       },
       providesTags: ['Product'],
     }),
-
-    // ✅ Move this INSIDE endpoints
     addProduct: builder.mutation({
       query: (newProduct) => ({
         url: '/Product',
         method: 'POST',
         body: newProduct,
       }),
+      invalidatesTags: ['Product'],
+    }),
+    editProduct: builder.mutation({
+      query: ({ id, ...updatedProduct }) => ({
+        url: `/Product/${id}`,
+        method: 'PUT',
+        body: updatedProduct,
+      }),
+      invalidatesTags: ['Product'],
+    }),
+    deleteProduct: builder.mutation({
+      query: (id) => ({
+        url: `/Product/${id}`,
+        method: 'DELETE',
+  }),
       invalidatesTags: ['Product'],
     }),
   }),
@@ -39,4 +53,6 @@ export const productApi = createApi({
 export const {
   useSearchProductsQuery,
   useAddProductMutation,
+  useDeleteProductMutation,
+  useEditProductMutation,
 } = productApi;

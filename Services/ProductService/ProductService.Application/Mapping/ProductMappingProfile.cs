@@ -6,12 +6,14 @@ public class ProductMappingProfile : Profile
 {
     public ProductMappingProfile()
     {
-        // Entity → Read DTO
         CreateMap<Product, GetProductDto>()
-            .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name));
+     .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name))
+     .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ImageUrl)); // ✅ Add this line
+
 
         CreateMap<Product, ProductDto>()
-            .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name));
+     .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name));
+
 
         // Create DTO → Entity
         CreateMap<CreateProductDto, Product>();

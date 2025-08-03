@@ -1,23 +1,43 @@
 import React, { useState } from 'react';
 import MainLayout from '../Components/Layout/MainLayout';
 import { useSearchProductsQuery } from '../features/Product/productApi';
+import { useDeleteProductMutation } from '../features/Product/productApi';
 import Table from '../Components/Table';
 import { useNavigate } from 'react-router-dom';
 
 const Product = () => {
   const navigate = useNavigate();
   const [pageNumber, setPageNumber] = useState(1);
-  const pageSize = 3;
+  const pageSize = 10;
 
   const { data, isLoading, isError } = useSearchProductsQuery({ pageNumber, pageSize });
+  const [deleteProduct] = useDeleteProductMutation();
 
-  const headers = ['Name', 'Category', 'Price'];
+  const headers = ['Name', 'Category', 'Price', 'Image'];
 
   const tableData = data?.items.map(product => ({
+    id: product.id,
     name: product.name,
     category: product.categoryName,
     price: `₹ ${product.price}`,
+    image: product.imageUrl,
+    raw: product,
   })) || [];
+
+  const handleDelete = async (product) => {
+    if (window.confirm(`Are you sure you want to delete "${product.name}"?`)) {
+      try {
+        await deleteProduct(product.id).unwrap();
+        alert('Product deleted successfully');
+      } catch (err) {
+        console.error('Delete failed', err);
+        alert('Failed to delete product');
+      }
+    }
+  };
+  const handleEdit = (product) => {
+    navigate('/product/edit-product', { state: { product } });
+  };
 
   return (
     <MainLayout>
@@ -42,8 +62,8 @@ const Product = () => {
                 headers={headers}
                 data={tableData}
                 actions={true}
-                onEdit={(product) => console.log('Edit', product)}
-                onDelete={(product) => console.log('Delete', product)}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
               />
             </div>
 

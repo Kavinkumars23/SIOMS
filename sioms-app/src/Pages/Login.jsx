@@ -14,16 +14,24 @@ const Login = () => {
     const dispatch = useDispatch();
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const res = await login(form).unwrap();
-            localStorage.setItem('token', res.token);
-            dispatch(loginSuccess({ user: res.user, token: res.token }));
-            navigate('/landing');
-        } catch (err) {
-            console.error('Login failed:', err?.data || err.message);
+    e.preventDefault();
+    try {
+        const res = await login(form).unwrap();
+
+        if (res.result === "Invalid Email or Password.") {
+            alert("Invalid email or password.");
+            return;
         }
-    };
+
+        localStorage.setItem('token', res.token);
+        dispatch(loginSuccess({ user: res.user, token: res.token }));
+        navigate('/landing');
+    } catch (err) {
+        console.error('Login failed:', err?.data || err.message);
+        alert('Login failed. Please try again later.');
+    }
+};
+
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-400 via-pink-300 to-blue-300">
             <div className="flex w-full max-w-5xl bg-white shadow-xl rounded-lg overflow-hidden">

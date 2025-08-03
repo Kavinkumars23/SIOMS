@@ -61,7 +61,7 @@ namespace ProductService.Application.Services
     string? name, int? categoryId, decimal? minPrice, decimal? maxPrice,
     int pageNumber, int pageSize)
         {
-            var query = _context.Products.Include(p => p.Category).AsQueryable();
+            var query = _context.Products.Include(p => p.Category).Where(p => !p.IsDeleted).AsQueryable();
 
             if (!string.IsNullOrEmpty(name))
                 query = query.Where(p => p.Name.Contains(name) || p.SKU.Contains(name));

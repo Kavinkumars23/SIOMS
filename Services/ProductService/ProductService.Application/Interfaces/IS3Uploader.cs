@@ -10,5 +10,6 @@ namespace ProductService.Application.Interfaces
     public interface IS3Uploader
     {
         Task<string> UploadFileAsync(IFormFile file);
+        Task DeleteFileAsync(string fileName);
     }
 }

@@ -28,7 +28,7 @@ namespace IdentityService.API.Controllers
                 return Unauthorized( new {error = result});
             }
 
-            return Ok(new { token = result });
+            return Ok(new { result });
         }
 
         
