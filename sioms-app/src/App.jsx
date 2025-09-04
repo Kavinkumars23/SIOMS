@@ -6,6 +6,7 @@ import PrivateRoute from './Components/PrivateRoute';
 import Product from './Pages/Product';
 import AddProduct from './Pages/AddProduct';
 import EditProduct from './Pages/EditProduct';
+import ProfilePage from './Pages/ProfilePage';
 
 function App() {
   return (
@@ -41,6 +42,13 @@ function App() {
         <Route path="/product/edit-product" element={<PrivateRoute>
           <EditProduct />
         </PrivateRoute>} />
+        <Route
+          path="/profile"
+          element={
+            <PrivateRoute>
+              <ProfilePage />
+            </PrivateRoute>
+          } />
       </Routes>
     </Router>
   );
