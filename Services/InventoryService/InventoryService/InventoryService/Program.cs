@@ -5,8 +5,15 @@ using InventoryService.Infrastructure.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var cs = builder.Configuration.GetConnectionString("DefaultConnection");
+
 builder.Services.AddDbContext<InventoryDbContext>(opt =>
-    opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    opt.UseSqlServer(cs, sql =>
+    {
+        sql.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
+        sql.CommandTimeout(120);
+    }));
+
 
 builder.Services.AddControllers();
 
